@@ -23,5 +23,6 @@ typedef Array *Array_ptr;
 Array *map(Array *src, Mapper mapper);
 Array *filter(Array *src, Predicate predicate);
 int reduce(Array *src, int init, Reducer reducer);
+Array_ptr creat_list(int count);
 
 #endif

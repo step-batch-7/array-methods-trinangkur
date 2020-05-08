@@ -2,7 +2,7 @@
 #include "array.h"
 
 Array_ptr creat_list(int count) {
-  Array_ptr new_list;
+  Array_ptr new_list = malloc(sizeof(Array));
   new_list->array = malloc(sizeof(int) * count);
   new_list->length = count;
   return new_list;
