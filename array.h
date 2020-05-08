@@ -1,6 +1,8 @@
 #ifndef __ARRAY_H
 #define __ARRAY_H
-typedef enum
+typedef int *Int_Ptr;
+
+typedef enum 
 {
   False,
   True
@@ -15,6 +17,8 @@ typedef struct
   int *array;
   int length;
 } Array;
+
+typedef Array *Array_ptr;
 
 Array *map(Array *src, Mapper mapper);
 Array *filter(Array *src, Predicate predicate);
