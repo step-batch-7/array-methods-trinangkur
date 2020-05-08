@@ -41,7 +41,7 @@ void test_map (void) {
 }
 
 void test_filter (void) {
-  printf("\ntesting map\n");
+  printf("\ntesting filter\n");
   int a[] = {1,2,3,4};
   Array_ptr list = filter(copy_in_list(a, 4), &is_less_than_3);
   for (int i = 0; i < list->length; i++) {
