@@ -26,6 +26,12 @@ Bool is_less_than_5 (void *a) {
   return *(int *)a < 5;
 }
 
+void * sum_using_ref(void *a, void *b) {
+  int *c = malloc(sizeof(int));
+  *c = *(int *) a + *(int *)b;
+  return c;
+}
+
 Array_ptr copy_in_list(int * set, int length) {
   Array_ptr list = creat_list(length);
   list->array = malloc(sizeof(int) * length);
@@ -103,11 +109,21 @@ void test_void_filter(void) {
   printf("\tpassed...\n");
 }
 
+void test_void_reduce(void) {
+  printf("\ntesting reduce_void\n");
+  int a[] = {1,2,3,4};
+  ArrayVoid_ptr list = create_int_object_array(a,4);
+  int b = 0;
+  assert(*(int *)reduce_void(list, &b, &sum_using_ref) == 10);
+  printf("\tpassed...\n");
+}
+
 int main (void) {
   test_reduce();
   test_map();
   test_filter();
   test_void_map();
   test_void_filter();
+  test_void_reduce();
   return 0;
 }
