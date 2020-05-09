@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include "../array.h"
 
@@ -16,6 +17,7 @@ Bool is_less_than_3 (int a) {
 
 Array_ptr copy_in_list(int * set, int length) {
   Array_ptr list = creat_list(length);
+  list->array = malloc(sizeof(int) * length);
   for (int i = 0; i < length; i++) {
     list->array[i] = set[i];
   }
