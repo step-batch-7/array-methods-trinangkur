@@ -22,6 +22,10 @@ void *increment_addr (void *a) {
   return b;
 }
 
+Bool is_less_than_5 (void *a) {
+  return *(int *)a < 5;
+}
+
 Array_ptr copy_in_list(int * set, int length) {
   Array_ptr list = creat_list(length);
   list->array = malloc(sizeof(int) * length);
@@ -87,10 +91,23 @@ void test_void_map(void) {
   printf("\tpassed...\n");
 }
 
+void test_void_filter(void) {
+  printf("\ntesting filter_void\n");
+  int a[] = {3,4,5,6};
+  ArrayVoid_ptr list = create_int_object_array(a,4);
+  list = filter_void(list, &is_less_than_5);
+  for (int i = 0; i < list->length; i++) {
+    assert(*(int *)list->array[i] < 5);
+  }
+  assert(list->length == 2);
+  printf("\tpassed...\n");
+}
+
 int main (void) {
   test_reduce();
   test_map();
   test_filter();
   test_void_map();
+  test_void_filter();
   return 0;
 }
