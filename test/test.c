@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "../array.h"
+#include "../array_void.h"
 
 int sum (int num1, int num2) {
   return num1 + num2;
@@ -15,6 +16,12 @@ Bool is_less_than_3 (int a) {
   return a < 3;
 }
 
+void *increment_addr (void *a) {
+  int *b = malloc(sizeof(int));
+  *b = *((int *)a) + 1;
+  return b;
+}
+
 Array_ptr copy_in_list(int * set, int length) {
   Array_ptr list = creat_list(length);
   list->array = malloc(sizeof(int) * length);
@@ -23,6 +30,19 @@ Array_ptr copy_in_list(int * set, int length) {
   }
   return list;
 }
+
+ArrayVoid_ptr create_int_object_array(int *src, unsigned length) {
+  ArrayVoid_ptr list = creat_void_list(length);
+  list->array = malloc(sizeof(Object) * length);
+  for (int i = 0; i < length; i++) {
+    int *temp = malloc(sizeof(int));
+    *temp = src[i];
+    list->array[i] = temp;
+  }
+  return list;
+}
+
+
 
 void test_reduce (void) {
   printf("testing reduce\n");
@@ -53,9 +73,24 @@ void test_filter (void) {
   assert(list->length == 2);
 }
 
+void test_void_map(void) {
+  printf("\ntesting map_void\n");
+  int a[] = {1,2,3,4};
+  ArrayVoid_ptr list = create_int_object_array(a,4);
+  list = map_void(list, &increment_addr);
+  for (int i = 0; i < list->length; i++)
+  {
+    int *temp = list->array[i];
+    assert(*temp == a[i] +1);
+  }
+  assert(list->length == 4);
+  printf("\tpassed...\n");
+}
+
 int main (void) {
   test_reduce();
   test_map();
   test_filter();
+  test_void_map();
   return 0;
 }
